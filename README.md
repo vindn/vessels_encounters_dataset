@@ -1,1 +1,7 @@
-# vessels_encounters_dataset
+# Dataset with vessels encounters trajectories
+
+We processed 2.313.354.048 of AIS messages between 2015/01/01 and 2015/12/31 from Marine Cadastre, detected 42.881 vessel encounters and extracted to dataset 85.762 trajectories provenient from encounters. In the paper "A Dataset of Vessel Encounter Trajectories for Behavior Detection in MSA" you can see the dictionary data from dataset.
+
+# Paper Abstract
+
+Maritime Situational Awareness (MSA) is crucial for identifying suspicious vessel activities, such as dark-ship operations and prolonged loitering activities. However, the development of robust detection systems requires high-quality datasets that capture vessel encounters, particularly encounters that occur beyond 20 nautical miles (MN) from the coast. This paper presents the creation and analysis of a comprehensive data set that contains vessel trajectories associated with offshore encounters. The dataset, constructed using 12 months of data from the Marine Cadastre Automatic Identification System (AIS), leverages the H3 geohash system for spatial proximity detection and MovingPandas for trajectory extraction. The data set analysis demonstrate that the dataset is a powerful tool for enhancing Maritime Domain Awareness (MDA), contributing to monitoring and security in the maritime environment. The analysis of encounter patterns highlights both the importance of reliable data and the need for a robust detection system to address uncertainties and information gaps.
