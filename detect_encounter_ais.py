@@ -307,6 +307,7 @@ class Encounter:
         with open(self.data_set_folder + file_name, 'wb') as data_file:
             pickle.dump(data, data_file)
 
+    # @staticmethod
     def read_pickle_obj(self, file_name):
         try:
             with open(self.data_set_folder + file_name, 'rb') as data_file:
@@ -871,8 +872,8 @@ class Encounter:
 
         trajs_no_encounter = encounter.create_trajectory( gdf_not_encounter )
         # get points by trajectory
-        size_trajectory = 21
-        # size_trajectory = 41
+        # size_trajectory = 21
+        size_trajectory = 41
         t = []
         for traj in trajs_no_encounter:
             if traj.df['MMSI'].count() >= size_trajectory: 
@@ -1365,7 +1366,7 @@ gdf_1 = encounter.get_concat_gdf( list_encounters, 1 )
 gdf_2 = encounter.get_concat_gdf( list_encounters, 2 )
 
 # write gdf encounter points in pickle file
-encounter.write_pickle_obj( pd.concat( [gdf_1, gdf_2], ignore_index=False), 'gdf_encounters_12meses_len20.pickle'  )
+encounter.write_pickle_obj( pd.concat( [gdf_1, gdf_2], ignore_index=False), 'gdf_encounters_12meses_len20-2.pickle'  )
 
 # %%
 
@@ -1388,11 +1389,11 @@ for i in range(len(list_not_encouters)):
 concat_gdf_no_encounters = pd.concat( flat_no_encounter, ignore_index=False) 
 
 # write gdf not encounters in pickle file
-encounter.write_pickle_obj( concat_gdf_no_encounters, 'gdf_not_encounters_12meses_len20.pickle'  )
+encounter.write_pickle_obj( concat_gdf_no_encounters, 'gdf_not_encounters_12meses_len20-2.pickle'  )
 
 # %%
 
-concat_gdf_no_encounters = concat_gdf_no_encounters.drop( ['direction', 'speed'], axis=1 )
+# concat_gdf_no_encounters = concat_gdf_no_encounters.drop( ['direction', 'speed'], axis=1 )
 
 # create moving pandas trajectories to not encounter trajectories
 # trajs_no_encounters = encounter.create_trajectory( concat_gdf_no_encounters )
@@ -1442,7 +1443,11 @@ encounter.write_pickle_obj( list_encounters, 'list_encounters_12meses.pickle'  )
 enc = Encounter( )
 # oficial
 # gdf_enc_test = enc.read_pickle_obj('gdf_encounters_12meses.pickle')
-gdf_enc_test = enc.read_pickle_obj('gdf_encounters_12meses_len20.pickle')
+gdf_enc_test = enc.read_pickle_obj('gdf_encounters_12meses_len20-2.pickle')
+
+# %%
+# # Create traj_id for loitering trajectories by combining encounter_id and MMSI
+# gdf_enc_test['traj_id'] = gdf_enc_test['encounter_id'].astype(str) + '_' + gdf_enc_test['MMSI'].astype(str)
 
 
 # %%
@@ -1569,7 +1574,7 @@ for eid in gdf_consolidation['encounter_id'].unique():
         gdf1 = gdf_consolidation[ (gdf_consolidation['MMSI'] == mmsis[0]) & (gdf_consolidation['encounter_id'] == eid) ]
         gdf2 = gdf_consolidation[ (gdf_consolidation['MMSI'] == mmsis[1]) & (gdf_consolidation['encounter_id'] == eid) ]
 
-        if not (len(gdf1) == 21 and len(gdf2) == 21):
+        if not (len(gdf1) == 41 and len(gdf2) == 41):
             continue
 
         # I'm using resolution 10 because I already know that is a encounter, and using resolution 11 in this
@@ -1792,7 +1797,7 @@ pair_counts_combined_updated[:10]
 # %%
 
 #Write  consolidated dataset
-enc.write_pickle_obj( gdf_consolidation, 'gdf_12months_encounters_len20.pickle'  )
+enc.write_pickle_obj( gdf_consolidation, 'gdf_12months_encounters_len20-2.pickle'  )
 
 # %%
 # read no encounter trajectories
